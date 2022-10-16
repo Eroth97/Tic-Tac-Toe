@@ -5,23 +5,41 @@ const gameBoard = (() => {
 
   let populateArray = () => {
     for (let i = 0; i < gameBoard.length; i++){
-      gameBoard[i] = 'x';
+      let newDiv = document.createElement('div');
+      newDiv.setAttribute('class', 'square');
+      newDiv.textContent = '';
+      gameBoard[i] = newDiv;
+      newDiv.addEventListener('click', ()=> {changeMark(turn, newDiv)});
     }
   };
 
   let printArray = () => {
     gameBoard.forEach((element) => {
-      let newDiv = document.createElement('div');
-      newDiv.setAttribute('class', 'square');
-      newDiv.textContent = element;
-      gameBoardDiv.appendChild(newDiv);
+      gameBoardDiv.appendChild(element);
     });
   }
+
+  let changeMark = (turn, newDiv) => {
+    let player = turn === 1? player1: player2;
+    newDiv.textContent = player.mark;
+  };
+
   return {
     populateArray,
     printArray,
   }
 })();
+
+const Player = (mark) => {
+  return {
+    mark,
+  }
+};
+
+const player1 = Player('x');
+const player2 = Player('O');
+let turn = 1;
+
 
 window.addEventListener('load', () =>{
   gameBoard.populateArray();
