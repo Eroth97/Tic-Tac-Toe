@@ -1,5 +1,61 @@
+:root{
+  --white-font: whitesmoke;
+  --lightest-gray: #adb5bd;
+  --medium--gray: #495057;
+  --darkest-gray: #212529;
+  --disabled-button-color: #343a40;
+  --red: #dc3545;
+  --green: #198754;
+}
+
+body{
+  display: flex;
+  flex-direction: column;
+}
+
+
+/* First part of the page */
+#start{
+  position: absolute;
+  left: 42%;
+  top: 45%;
+  border: 1px solid var(--darkest-gray);
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;  
+  background-color: var(--lightest-gray);
+}
+
+#start button{
+  color: var(--white-font);
+  background-color: var(--medium--gray);
+  margin: 0 1rem;
+  border-radius: 4px;
+  width: 4rem;
+}
+
+#start button:hover{
+  transform: scale(1.15);
+}
+
+#header{
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  height: 4rem;
+  font-size: 2rem;
+}
+
 #gameBoard{
+  grid-column: 2/3;
   width: 10rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+#middle-div{
   display: grid;
   grid-template-columns: repeat(3, 1fr);
 }
@@ -8,8 +64,8 @@
   display: inline-grid;
   align-items: center;
   justify-content: center;
-  width: max(2rem, 10px);
-  height: max(2rem, 10px);
+  width: max(4rem, 10px);
+  height: max(4rem, 10px);
   margin: 4px;
   border: 1px solid black;
 }

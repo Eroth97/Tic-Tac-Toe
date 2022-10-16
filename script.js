@@ -1,9 +1,12 @@
 let gameBoardDiv = document.getElementById('gameBoard');
 let winnerDiv = document.getElementById('winner');
 
+let xButton = document.getElementById('x-button');
+let oButton = document.getElementById('o-button');
+let start = document.getElementById('start');
+
 const gameBoard = (() => {
   let gameBoard = new Array(9);
-  let end = 0;
 
   const populateArray = () => {
     for (let i = 0; i < gameBoard.length; i++){
@@ -23,20 +26,19 @@ const gameBoard = (() => {
 
   const canIMakeAMark = (localTurn, newDiv) =>{
     if(!isThereAWinner()){
-      let player = localTurn === 1? player1: player2;
+      let player = localTurn === 1? players[0]: players[1];
       changeMark(localTurn, newDiv, player);
     }
   }
 
   const isThereAWinner = () =>{
-    return checkWinner(player1) || checkWinner(player2);
+    return checkWinner(players[0]) || checkWinner(players[1]);
   };
 
   const changeMark = (localTurn, newDiv, player) => {
     if (newDiv.textContent === ''){
       newDiv.textContent = player.mark;
       turn = localTurn === 1? 2: 1;
-      end++;
 
       if(checkWinner(player)){
         printWinner(player);
@@ -47,9 +49,11 @@ const gameBoard = (() => {
   };
 
   const checkDraw = () =>{
-    if (end === 9){
-      return true;
-    }
+    let noDraw = false;
+    gameBoard.forEach(element => {
+      noDraw = (element.textContent === '' || noDraw);
+    });
+    return !noDraw;
   }
 
   const printDraw = () => {
@@ -109,12 +113,25 @@ const Player = (mark) => {
   }
 };
 
-const player1 = Player('x');
-const player2 = Player('O');
+let players = [];
 let turn = 1;
 
-
-window.addEventListener('load', () =>{
+let createInterface = () => {
+  start.setAttribute('style', 'display: none;');
   gameBoard.populateArray();
   gameBoard.printArray();
+}
+
+let populatePlayers = (mark1, mark2) => {players = [Player(mark1), Player(mark2)];}
+
+
+xButton.addEventListener('click', () =>{
+  createInterface();
+  populatePlayers('X', 'O');
 });
+
+
+oButton.addEventListener('click', () => {
+  createInterface();
+  populatePlayers('O', 'X');
+})
