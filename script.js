@@ -19,9 +19,12 @@ const gameBoard = (() => {
     });
   }
 
-  let changeMark = (turn, newDiv) => {
-    let player = turn === 1? player1: player2;
-    newDiv.textContent = player.mark;
+  let changeMark = (localTurn, newDiv) => {
+    if (newDiv.textContent === ''){
+      let player = localTurn === 1? player1: player2;
+      newDiv.textContent = player.mark;
+      turn = localTurn === 1? 2: 1;
+    }
   };
 
   return {
