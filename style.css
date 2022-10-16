@@ -1,0 +1,15 @@
+#gameBoard{
+  width: 10rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.square{
+  display: inline-grid;
+  align-items: center;
+  justify-content: center;
+  width: max(2rem, 10px);
+  height: max(2rem, 10px);
+  margin: 4px;
+  border: 1px solid black;
+}
