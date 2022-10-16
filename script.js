@@ -1,7 +1,9 @@
 let gameBoardDiv = document.getElementById('gameBoard');
+let winnerDiv = document.getElementById('winner');
 
 const gameBoard = (() => {
   let gameBoard = new Array(9);
+  let end = 0;
 
   const populateArray = () => {
     for (let i = 0; i < gameBoard.length; i++){
@@ -9,36 +11,50 @@ const gameBoard = (() => {
       newDiv.setAttribute('class', 'square');
       newDiv.textContent = '';
       gameBoard[i] = newDiv;
-      newDiv.addEventListener('click', ()=> {isThereAWinner(turn, newDiv)});
+      newDiv.addEventListener('click', ()=> {canIMakeAMark(turn, newDiv)});
     }
   };
-
-  //Maybe we can replace isThereAWinner with a passing function that looks whether there is a winner or not
-  // and if there is closes everything. If there's not makes a mark. Something like: lookForAMark().
+  
   const printArray = () => {
     gameBoard.forEach((element) => {
       gameBoardDiv.appendChild(element);
     });
   }
 
-  const isThereAWinner = (localTurn, newDiv) =>{
-    if (!(checkWinner(player1) || checkWinner(player2))){
+  const canIMakeAMark = (localTurn, newDiv) =>{
+    if(!isThereAWinner()){
       let player = localTurn === 1? player1: player2;
       changeMark(localTurn, newDiv, player);
-    } else{
-      let winner = checkWinner(player1)? 'player 1': 'player 2';
-      console.log(winner);
     }
+  }
 
-    
+  const isThereAWinner = () =>{
+    return checkWinner(player1) || checkWinner(player2);
   };
 
   const changeMark = (localTurn, newDiv, player) => {
     if (newDiv.textContent === ''){
       newDiv.textContent = player.mark;
       turn = localTurn === 1? 2: 1;
+      end++;
+
+      if(checkWinner(player)){
+        printWinner(player);
+      } else if (checkDraw()){
+        printDraw();
+      }
     }
   };
+
+  const checkDraw = () =>{
+    if (end === 9){
+      return true;
+    }
+  }
+
+  const printDraw = () => {
+    winnerDiv.textContent = `It is a draw`;
+  }
 
   const checkWinner = (player) => {
     //Check rows
@@ -71,6 +87,10 @@ const gameBoard = (() => {
     return false;
   };
 
+  const printWinner = (winner) =>{
+    winnerDiv.textContent = `The winner is: ${winner.mark}`;
+  }
+
   const checkEquality = (num1, num2, num3, player) => {
     return gameBoard[num1].textContent != player.mark? false: 
            gameBoard[num2].textContent != player.mark? false:
@@ -80,7 +100,6 @@ const gameBoard = (() => {
   return {
     populateArray,
     printArray,
-    checkEquality,
   }
 })();
 
