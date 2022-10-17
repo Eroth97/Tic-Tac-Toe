@@ -1,9 +1,9 @@
 :root{
   --white-font: whitesmoke;
   --lightest-gray: #adb5bd;
-  --medium--gray: #495057;
+  --medium-gray: #495057;
   --darkest-gray: #212529;
-  --disabled-button-color: #343a40;
+  --button-color: #343a40;
   --red: #dc3545;
   --green: #198754;
 }
@@ -11,6 +11,8 @@
 body{
   display: flex;
   flex-direction: column;
+  margin: 0;
+  background-color: var(--lightest-gray);
 }
 
 
@@ -18,17 +20,17 @@ body{
 .card{
   position: absolute;
   left: 42%;
-  top: 45%;
+  top: 12%;
   border: 1px solid var(--darkest-gray);
   border-radius: 4px;
   padding: 1rem;  
-  background-color: var(--lightest-gray);
-  color: var(--darkest-gray);
+  background-color: var(--medium-gray);
+  color: var(--white-font);
 }
 
 .card button{
   color: var(--white-font);
-  background-color: var(--medium--gray);
+  background-color: var(--button-color);
   margin: 0 1rem;
   border-radius: 4px;
   width: 4rem;
@@ -57,14 +59,20 @@ body{
 #end button{
   margin-top: 0.5rem;
 }
+
+
 /* Header CSS */
 
 #header{
   display: flex;
   align-content: center;
   justify-content: center;
-  height: 4rem;
+  height: 10%;
   font-size: 2rem;
+  font-size: 2rem;
+  padding: 1rem;
+  color: var(--white-font);
+  background-color: var(--darkest-gray);
 }
 
 #gameBoard{
