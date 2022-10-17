@@ -20,6 +20,10 @@ const gameBoard = (() => {
     }
   };
   
+  const cleanArray = () =>{
+    gameBoard.forEach(element => element.textContent = '');
+  }
+
   const printArray = () => {
     gameBoard.forEach((element) => {
       gameBoardDiv.appendChild(element);
@@ -62,6 +66,9 @@ const gameBoard = (() => {
     winnerDiv.textContent = `It is a draw`;
     gameBoardDiv.setAttribute('style', 'display: none;');
     end.setAttribute('style', 'display: block;');
+    round++;
+    turn = 1;
+    cleanArray();
   }
 
   const checkWinner = (player) => {
@@ -99,6 +106,9 @@ const gameBoard = (() => {
     winnerDiv.textContent = `The winner is: ${winner.mark}`;
     gameBoardDiv.setAttribute('style', 'display: none;');
     end.setAttribute('style', 'display: block;');
+    round++;
+    turn = 1;
+    cleanArray();
   }
 
   const checkEquality = (num1, num2, num3, player) => {
@@ -121,6 +131,7 @@ const Player = (mark) => {
 
 let players = [];
 let turn = 1;
+let round = 0;
 
 let createInterface = () => {
   start.setAttribute('style', 'display: none;');
@@ -128,18 +139,32 @@ let createInterface = () => {
   gameBoard.printArray();
 }
 
+let recreateInterface = () =>{
+  start.setAttribute('style', 'display: none;');
+  gameBoardDiv.setAttribute('style', 'display: grid;');
+}
+
 let populatePlayers = (mark1, mark2) => {players = [Player(mark1), Player(mark2)];}
 
 
 xButton.addEventListener('click', () =>{
-  createInterface();
   populatePlayers('X', 'O');
+  if (round === 0){
+    createInterface();
+  } else{
+    recreateInterface();
+  }
 });
 
 
 oButton.addEventListener('click', () => {
-  createInterface();
   populatePlayers('O', 'X');
+  if (round === 0){
+    createInterface();
+    }
+  else{
+    recreateInterface();
+  }
 })
 
 newRound.addEventListener('click', () =>{
