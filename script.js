@@ -4,6 +4,8 @@ let winnerDiv = document.getElementById('winner');
 let xButton = document.getElementById('x-button');
 let oButton = document.getElementById('o-button');
 let start = document.getElementById('start');
+let end = document.getElementById('end');
+let newRound = document.getElementById('new-round');
 
 const gameBoard = (() => {
   let gameBoard = new Array(9);
@@ -58,6 +60,8 @@ const gameBoard = (() => {
 
   const printDraw = () => {
     winnerDiv.textContent = `It is a draw`;
+    gameBoardDiv.setAttribute('style', 'display: none;');
+    end.setAttribute('style', 'display: block;');
   }
 
   const checkWinner = (player) => {
@@ -93,6 +97,8 @@ const gameBoard = (() => {
 
   const printWinner = (winner) =>{
     winnerDiv.textContent = `The winner is: ${winner.mark}`;
+    gameBoardDiv.setAttribute('style', 'display: none;');
+    end.setAttribute('style', 'display: block;');
   }
 
   const checkEquality = (num1, num2, num3, player) => {
@@ -134,4 +140,9 @@ xButton.addEventListener('click', () =>{
 oButton.addEventListener('click', () => {
   createInterface();
   populatePlayers('O', 'X');
+})
+
+newRound.addEventListener('click', () =>{
+  end.setAttribute('style', 'display: none;');
+  start.setAttribute('style', 'display: flex;');
 })

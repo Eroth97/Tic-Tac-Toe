@@ -9,19 +9,27 @@
   <script src="./script.js" defer></script>
 </head>
 <body>
-  <div id="start">
+  <div class="card" id="start">
     <p>Choose your mark:</p>
     <div>
       <button id = "x-button">x</button>
       <button id = "o-button">o</button>
     </div>
   </div>
+
+  <div class="card" id="end">
+    <div id="winner"></div>
+    <div>
+      Do you want to try again?
+      <button id="new-round">New Round</button>
+    </div>
+  </div>
+
   <div id ="header"> Tic Tac Toe</div>
   <div id="middle-div">
     <div class="empty-div"></div>
     <div id="gameBoard"></div>
     <div class="empty-div"></div>
-  </div>
-  <div id="winner"></div>
+  </div>  
 </body>
 </html>
