@@ -1,5 +1,6 @@
 let gameBoardDiv = document.getElementById('gameBoard');
 let winnerDiv = document.getElementById('winner');
+let turnParagraph = document.getElementById('turn');
 
 let xButton = document.getElementById('x-button');
 let oButton = document.getElementById('o-button');
@@ -16,10 +17,15 @@ const gameBoard = (() => {
       newDiv.setAttribute('class', 'square');
       newDiv.textContent = '';
       gameBoard[i] = newDiv;
-      newDiv.addEventListener('click', ()=> {canIMakeAMark(turn, newDiv)});
+      newDiv.addEventListener('click', () => {canIMakeAMark(turn, newDiv)});
+      printTurn();
     }
   };
   
+  const printTurn = () => {
+    turnParagraph.innerText = `Player turn: ${getPlayer(turn).mark}`;
+  }
+
   const cleanArray = () =>{
     gameBoard.forEach(element => element.textContent = '');
   }
@@ -32,19 +38,25 @@ const gameBoard = (() => {
 
   const canIMakeAMark = (localTurn, newDiv) =>{
     if(!isThereAWinner()){
-      let player = localTurn === 1? players[0]: players[1];
+      let player = getPlayer(localTurn);
       changeMark(localTurn, newDiv, player);
     }
+  }
+
+  const getPlayer = (localTurn) =>{
+    return localTurn === 1? players[0]: players[1];
   }
 
   const isThereAWinner = () =>{
     return checkWinner(players[0]) || checkWinner(players[1]);
   };
 
+
   const changeMark = (localTurn, newDiv, player) => {
     if (newDiv.textContent === ''){
       newDiv.textContent = player.mark;
       turn = localTurn === 1? 2: 1;
+      printTurn();
 
       if(checkWinner(player)){
         printWinner(player);
